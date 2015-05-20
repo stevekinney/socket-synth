@@ -1,4 +1,4 @@
-import beatTracker from './beat-tracker';
+import masterSequencer from './master-sequencer';
 
 export function tick(start, duration, callback, nextBeat) {
   var next = nextBeat || new Date(start.getTime() + duration);
@@ -15,11 +15,11 @@ export default tick(new Date(), 500, function () {
   const previous = ((i || 16) - 1) % 16;
   const current = i % 16;
 
-  beatTracker[current].forEach(function (box) {
+  masterSequencer[current].forEach(function (box) {
     box.classed('active', true);
   });
 
-  beatTracker[previous].forEach(function (box) {
+  masterSequencer[previous].forEach(function (box) {
     box.classed('active', false);
   });
 

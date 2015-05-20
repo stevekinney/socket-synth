@@ -1,7 +1,7 @@
 import d3 from 'd3';
 import container from './container';
 import registerNote from './register-note';
-import beatTracker from './beat-tracker';
+import masterSequencer from './master-sequencer';
 import notes from './notes';
 
 const width = 640;
@@ -20,7 +20,7 @@ notes.forEach(function (note, index) {
        .attr('height', 20)
        .attr('fill', '#999')
        .on('click', registerNote.bind(box, note, beat));
-    beatTracker.add(box, beat);
+    masterSequencer.add(box, beat);
   }
 });
 
