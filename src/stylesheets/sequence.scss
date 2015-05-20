@@ -1,7 +1,6 @@
-$yellow: rgb(248, 212, 58);
-$deepOcean: rgb(29, 178, 212);
+@import './colors';
 
-svg {
+.user-sequencer svg {
   width: 100%;
   margin-bottom: 3em;
   rect {
@@ -19,5 +18,9 @@ svg {
   }
 }
 
-
-
+.user-sequencer.mute svg {
+  rect {
+    stroke: $red;
+    fill: lighten($red, 10);
+  }
+}

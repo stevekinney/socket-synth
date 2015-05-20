@@ -1,4 +1,4 @@
-import synthesizer from './synthesizer';
+import oscillators from './oscillators';
 
 const masterSequencer = {
   elements: {},
@@ -35,8 +35,8 @@ const masterSequencer = {
     const notes = Object.keys(this.notes[currentBeat]);
     const activeNotes = notes.filter(note => this.notes[currentBeat][note]);
     const inactiveNotes = notes.filter(note => !this.notes[currentBeat][note]);
-    activeNotes.forEach(note => synthesizer(note).start());
-    inactiveNotes.forEach(note => synthesizer(note).stop());
+    activeNotes.forEach(note => oscillators(note).start());
+    inactiveNotes.forEach(note => oscillators(note).stop());
   }
 
 };

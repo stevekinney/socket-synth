@@ -1,0 +1,71 @@
+@import 'colors';
+
+a.button {
+  text-decoration: none;
+}
+
+button {
+  font-family: 'Open Sans';
+}
+
+button, input[type="submit"], .button {
+  color: white;
+  background-color: rgb(29, 178, 212);
+  font-size: 0.8rem;
+  font-weight: 300;
+  border: 1px solid rgb(29, 178, 212);
+  border-radius: 3px;
+  outline: none;
+  padding: 0.8rem 1.4rem;
+  font-weight: 300;
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    display: block;
+  }
+}
+
+button:hover, input[type="submit"]:hover, .button:hover {
+  background-color: rgb(36, 190, 235);
+}
+
+button:active, input[type="submit"]:active, .button:active {
+  background-color: rgb(28, 151, 187);
+}
+
+button.forward:after, input[type="submit"].forward:after, .button.forward:after {
+  content: ' →';
+}
+
+button.deactivated, input[type="submit"].deactivated, .button.deactivated {
+  background-color: rgb(189, 225, 235);
+  pointer-events: none;
+}
+
+button.secondary, input[type="submit"].secondary, .button.secondary {
+  background-color: white;
+  box-sizing: border-box;
+  color: rgb(29, 178, 212);
+}
+
+button.secondary:hover, input[type="submit"].secondary:hover, .button.secondary:hover {
+  background-color: #F9F9F9;
+  color: rgb(36, 190, 235);
+}
+
+button.secondary:active, input[type="submit"].secondary:active, .button.secondary:active {
+  background-color: #EEE;
+}
+
+button.xl, input[type="submit"].xl, .button.xl {
+  font-size: 1.5em;
+}
+
+.button-bar {
+  border-top: 1px dashed $lightBlue;
+  padding: 2rem 0;
+  margin-top: 1rem;
+}
+
+.buttons {
+  margin-top: 2rem;
+}

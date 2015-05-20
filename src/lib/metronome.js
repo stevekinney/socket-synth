@@ -1,18 +1,20 @@
 import masterSequencer from './master-sequencer';
 
-let i = 0;
+export default function () {
+  let i = 0;
 
-export default tick(new Date(), 500, function () {
-  const previous = ((i || 16) - 1) % 16;
-  const current = i % 16;
+  tick(new Date(), 500, function () {
+    const previous = ((i || 16) - 1) % 16;
+    const current = i % 16;
 
-  masterSequencer.activateElements(current);
-  masterSequencer.deactivateElements(previous);
+    masterSequencer.activateElements(current);
+    masterSequencer.deactivateElements(previous);
 
-  masterSequencer.playNotes(current, previous);
+    masterSequencer.playNotes(current, previous);
 
-  i++;
-});
+    i++;
+  });
+}
 
 export function tick(start, duration, callback, nextBeat) {
   var next = nextBeat || new Date(start.getTime() + duration);
