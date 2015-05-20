@@ -5,7 +5,7 @@ import notes from './notes';
 
 function createUserSequencer(selector) {
   const width = 640;
-  const height = notes.length * 30 + (notes.length * 10 - 20);
+  const height = notes.length * 35 + (notes.length * 10 - 20);
 
   const container = d3.select(selector);
 
@@ -19,8 +19,8 @@ function createUserSequencer(selector) {
       let box = currentUserSequencer.append('rect');
       box.attr('x', beat * 40)
          .attr('y', index * 40)
-         .attr('width', 20)
-         .attr('height', 20)
+         .attr('width', 35)
+         .attr('height', 35)
          .attr('fill', '#999')
          .on('click', registerNote.bind(box, note, beat));
       masterSequencer.add(box, beat, note);
