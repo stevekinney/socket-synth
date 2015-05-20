@@ -20,7 +20,7 @@ notes.forEach(function (note, index) {
        .attr('height', 20)
        .attr('fill', '#999')
        .on('click', registerNote.bind(box, note, beat));
-    masterSequencer.add(box, beat);
+    masterSequencer.add(box, beat, note);
   }
 });
 
