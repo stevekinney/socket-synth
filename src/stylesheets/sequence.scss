@@ -3,7 +3,8 @@ $deepOcean: rgb(29, 178, 212);
 
 svg {
   width: 100%;
-  .sequence rect {
+  margin-bottom: 3em;
+  rect {
     stroke: $deepOcean;
     fill: lighten($deepOcean, 10);
 
@@ -15,7 +16,6 @@ svg {
       fill: $yellow;
       stroke: darken($yellow, 10);
     }
-
   }
 }
 

@@ -1,9 +1,27 @@
-export default function increment(start, duration, callback, nextBeat) {
+import beatTracker from './beat-tracker';
+
+export function tick(start, duration, callback, nextBeat) {
   var next = nextBeat || new Date(start.getTime() + duration);
   if (new Date() >= next) {
     if (typeof callback === 'function') { callback(); }
-    requestAnimationFrame(increment.bind(null, next, duration, callback, null));
+    requestAnimationFrame(tick.bind(null, next, duration, callback, null));
   } else {
-    requestAnimationFrame(increment.bind(null, start, duration, callback, next));
+    requestAnimationFrame(tick.bind(null, start, duration, callback, next));
   }
 }
+
+let i = 0;
+export default tick(new Date(), 500, function () {
+  const previous = ((i || 16) - 1) % 16;
+  const current = i % 16;
+
+  beatTracker[current].forEach(function (box) {
+    box.classed('active', true);
+  });
+
+  beatTracker[previous].forEach(function (box) {
+    box.classed('active', false);
+  });
+
+  i++;
+});
