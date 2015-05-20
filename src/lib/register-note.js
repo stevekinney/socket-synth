@@ -1,4 +1,3 @@
-export default function registerNote(socket, note, beat) {
-  const box = d3.select(this);
-  box.classed('on', !box.classed('on'));
+export default function registerNote(note, beat) {
+  this.classed('on', !this.classed('on'));
 }
