@@ -1,0 +1,23 @@
+$yellow: rgb(248, 212, 58);
+$deepOcean: rgb(29, 178, 212);
+
+svg {
+  width: 100%;
+  .sequence rect {
+    stroke: $deepOcean;
+    fill: lighten($deepOcean, 10);
+
+    &.active {
+      opacity: 0.6;
+    }
+
+    &.on {
+      fill: $yellow;
+      stroke: darken($yellow, 10);
+    }
+
+  }
+}
+
+
+
