@@ -1,8 +1,11 @@
+import _ from 'lodash';
 import oscillators from './oscillators';
+import socket from './socket-connection';
+import notes from './notes';
 
 const masterSequencer = {
   elements: {},
-  notes: {},
+  userSequencer: {},
 
   add(element, beat, note) {
     this.addElement(element, beat);
@@ -15,8 +18,19 @@ const masterSequencer = {
   },
 
   addNote(beat, note) {
-    if (!this.notes[beat]) { this.notes[beat] = {}; }
-    this.notes[beat][note] = this.notes[beat][note] || false;
+    if (!this.userSequencer[beat]) { this.userSequencer[beat] = {}; }
+    this.userSequencer[beat][note] = this.userSequencer[beat][note] || false;
+  },
+
+  addSocketSequences(sequences) {
+    const socketSequences = {};
+    for (let i = 0; i < 16; i++) {
+      socketSequences[i] = {};
+      notes.forEach(function () {
+        socketSequences[i] = false;
+      });
+    }
+    console.log(socketSequences);
   },
 
   activateElements(beat) {
@@ -31,10 +45,19 @@ const masterSequencer = {
     });
   },
 
+  get(beat, note) {
+    return this.userSequencer[beat][note];
+  },
+
+  update(beat, note) {
+    this.userSequencer[beat][note] = !this.userSequencer[beat][note];
+    socket.sendSequence(this.userSequencer);
+  },
+
   playNotes(currentBeat, previousBeat) {
-    const notes = Object.keys(this.notes[currentBeat]);
-    const activeNotes = notes.filter(note => this.notes[currentBeat][note]);
-    const inactiveNotes = notes.filter(note => !this.notes[currentBeat][note]);
+    const notes = Object.keys(this.userSequencer[currentBeat]);
+    const activeNotes = notes.filter(note => this.userSequencer[currentBeat][note]);
+    const inactiveNotes = notes.filter(note => !this.userSequencer[currentBeat][note]);
     activeNotes.forEach(note => oscillators(note).start());
     inactiveNotes.forEach(note => oscillators(note).stop());
   }

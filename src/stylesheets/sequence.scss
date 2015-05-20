@@ -17,9 +17,50 @@
   }
 }
 
-.user-sequencer.mute svg {
+.socket-sequencers svg:nth-child(2n + 1) {
   rect {
-    stroke: $red;
-    fill: lighten($red, 10);
+    stroke: $ocean;
+    fill: lighten($ocean, 10);
+
+    &.active {
+      opacity: 0.6;
+    }
+
+    &.on {
+      fill: $yellow;
+      stroke: darken($yellow, 10);
+    }
+  }
+}
+
+.socket-sequencers svg:nth-child(3n + 1) {
+  rect {
+    stroke: $orange;
+    fill: lighten($orange, 10);
+
+    &.active {
+      opacity: 0.6;
+    }
+
+    &.on {
+      fill: $yellow;
+      stroke: darken($yellow, 10);
+    }
+  }
+}
+
+.socket-sequencers svg {
+  rect {
+    stroke: $leafGreen;
+    fill: lighten($leafGreen, 10);
+
+    &.active {
+      opacity: 0.6;
+    }
+
+    &.on {
+      fill: $yellow;
+      stroke: darken($yellow, 10);
+    }
   }
 }
