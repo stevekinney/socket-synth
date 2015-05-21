@@ -2,12 +2,12 @@ import _ from 'lodash';
 import notes from './notes';
 
 export default class Sequencer {
-  constructor(...sequences) {
+  constructor(sequences) {
     this.beats = {};
     _.times(16, i => {
       this.beats[i] = new Beat();
-      if (sequences) {
-        this.beats[i] = _.assign(this.beats[i], ...sequences.map(s => s[i]));
+      if (sequences && sequences.length) {
+        this.beats[i] = _.merge(this.beats[i], ...sequences.map(s => s[i]));
       }
     });
   }
@@ -15,6 +15,6 @@ export default class Sequencer {
 
 export class Beat {
   constructor() {
-    notes.forEach(note => this[note] = false);
+    notes.forEach(note => this[note] = undefined);
   }
 }

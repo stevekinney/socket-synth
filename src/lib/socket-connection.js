@@ -14,11 +14,13 @@ export default {
       d3.selectAll('.socket-sequencers svg').remove();
 
       const socketSequences = _.omit(sequences, socket.id);
-      const sequencers = _.values(socketSequences)
-                        .forEach(function (sequencer) {
-                          createSocketSequencer('.socket-sequencers', sequencer);
-                        });
+      const sequencers = _.values(socketSequences);
 
+      sequencers.forEach(function (sequencer) {
+        createSocketSequencer('.socket-sequencers', sequencer);
+      });
+
+      masterSequencer.setSocketSequencers(sequencers);
     });
   },
 

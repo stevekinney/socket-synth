@@ -1,11 +1,13 @@
 import _ from 'lodash';
 import oscillators from './oscillators';
 import socket from './socket-connection';
+import Sequencer from './sequencer';
 import notes from './notes';
 
 const masterSequencer = {
   elements: {},
-  userSequencer: {},
+  userSequencer: new Sequencer(),
+  socketSequencers: new Sequencer(),
 
   add(element, beat, note) {
     this.addElement(element, beat);
@@ -18,19 +20,12 @@ const masterSequencer = {
   },
 
   addNote(beat, note) {
-    if (!this.userSequencer[beat]) { this.userSequencer[beat] = {}; }
-    this.userSequencer[beat][note] = this.userSequencer[beat][note] || false;
+    if (!this.userSequencer.beats[beat]) { this.userSequencer.beats[beat] = {}; }
+    this.userSequencer.beats[beat][note] = this.userSequencer.beats[beat][note];
   },
 
-  addSocketSequences(sequences) {
-    const socketSequences = {};
-    for (let i = 0; i < 16; i++) {
-      socketSequences[i] = {};
-      notes.forEach(function () {
-        socketSequences[i] = false;
-      });
-    }
-    console.log(socketSequences);
+  setSocketSequencers(sequences) {
+    this.socketSequencers = new Sequencer(sequences);
   },
 
   activateElements(beat) {
@@ -46,18 +41,22 @@ const masterSequencer = {
   },
 
   get(beat, note) {
-    return this.userSequencer[beat][note];
+    return this.userSequencer.beats[beat][note];
   },
 
   update(beat, note) {
-    this.userSequencer[beat][note] = !this.userSequencer[beat][note];
-    socket.sendSequence(this.userSequencer);
+    this.userSequencer.beats[beat][note] = !this.userSequencer.beats[beat][note];
+    socket.sendSequence(this.userSequencer.beats);
   },
 
   playNotes(currentBeat, previousBeat) {
-    const notes = Object.keys(this.userSequencer[currentBeat]);
-    const activeNotes = notes.filter(note => this.userSequencer[currentBeat][note]);
-    const inactiveNotes = notes.filter(note => !this.userSequencer[currentBeat][note]);
+    const combinedSequencer = new Sequencer([this.socketSequencers.beats, this.userSequencer.beats]);
+
+    const notes = Object.keys(combinedSequencer.beats[currentBeat]);
+
+    const activeNotes = notes.filter(note => combinedSequencer.beats[currentBeat][note]);
+    const inactiveNotes = notes.filter(note => !combinedSequencer.beats[currentBeat][note]);
+
     activeNotes.forEach(note => oscillators(note).start());
     inactiveNotes.forEach(note => oscillators(note).stop());
   }
