@@ -1,3 +1,4 @@
+import d3 from 'd3';
 import masterSequencer from './master-sequencer';
 
 export default function () {
@@ -7,8 +8,8 @@ export default function () {
     const previous = ((i || 16) - 1) % 16;
     const current = i % 16;
 
-    masterSequencer.activateElements(current);
-    masterSequencer.deactivateElements(previous);
+    d3.selectAll(`.beat-${current}`).classed('active', true);
+    d3.selectAll(`.beat-${previous}`).classed('active', false);
 
     masterSequencer.playNotes(current, previous);
 

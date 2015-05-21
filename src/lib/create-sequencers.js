@@ -22,30 +22,36 @@ export function createUserSequencer(selector) {
          .attr('y', index * 40)
          .attr('width', 35)
          .attr('height', 35)
+         .classed(`beat-${beat}`, true)
          .on('click', registerNote.bind(box, note, beat));
-      masterSequencer.add(box, beat, note);
+      masterSequencer.addNote(beat, note);
     }
   });
 
   return currentUserSequencer;
 }
 
-export function createSocketSequencer(selector, sequence) {
+export function createSocketSequencer(selector, sequence, scale = 0.5, callback) {
 
   const svg = d3.select(selector)
                 .append('svg')
-                .attr('width', width / 2)
-                .attr('height', height / 2)
+                .attr('width', width * scale)
+                .attr('height', height * scale)
                 .classed('sequencer', true);
 
   notes.forEach(function (note, index) {
     for (let beat = 0; beat < 16; beat++) {
       let box = svg.append('rect');
-      box.attr('x', beat / 2 * 40)
-         .attr('y', index / 2 * 40)
-         .attr('width', 35 / 2)
-         .attr('height', 35 / 2)
-         .classed('on', sequence[beat][note]);
+      box.attr('x', beat * scale * 40)
+         .attr('y', index * scale * 40)
+         .attr('width', 35 * scale)
+         .attr('height', 35 * scale)
+         .classed('on', sequence[beat][note])
+         .classed(`beat-${beat}`, true);
+
+     if (typeof callback === 'function') {
+       box.on('click', callback.bind(box, note, beat));
+     }
     }
   });
 
