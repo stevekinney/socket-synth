@@ -7,8 +7,8 @@
 
 %sequencer-rect {
   &.socket {
-    fill: $ocean;
-    stroke: darken($ocean, 10);
+    fill: $pale;
+    stroke: darken($pale, 10);
   }
 
   &.on {

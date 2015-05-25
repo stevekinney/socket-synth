@@ -19,6 +19,18 @@ export default {
       const socketSequences = _.omit(data, socket.id);
       const sequences = _.values(socketSequences);
 
+      if (sequences.length) {
+        let users = sequences.length === 1 ? 'user' : 'users';
+        document.querySelector('.socket-sequencers')
+                .innerHTML = `<p>${sequences.length} other ${users}
+                              connected.</p>`;
+      } else {
+        document.querySelector('.socket-sequencers')
+                .innerHTML = `<p>There are no other users connected.
+                              Try opening another window to take this thing for
+                              a spin.</p>`;
+      }
+
       sequences.forEach(function (sequence) {
         createSequencer('.socket-sequencers', sequence, 0.5);
       });
@@ -28,7 +40,7 @@ export default {
 
       pairs.forEach(([beat, note, value]) => {
         d3.select(`.user-sequencer .beat-${beat}.note-${note}`)
-          .classed('socket', value);
+          .classed('socket', !!value);
       });
 
       masterSequencer.setSocketSequencers(sequences);
