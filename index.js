@@ -6,10 +6,10 @@ const io = require('socket.io')(http);
 
 const path = require('path');
 
-app.use(express.static('dist'));
+app.use(express.static('client'));
 
 app.get('/', function (req, res){
-  res.sendFile(path.join(__dirname, '/dist/index.html'));
+  res.sendFile(path.join(__dirname, '/client/index.html'));
 });
 
 const sequences = {};

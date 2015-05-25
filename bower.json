@@ -1,0 +1,29 @@
+{
+  "name": "socket-synth",
+  "main": "index.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/stevekinney/socket-synth",
+  "authors": [
+    "Steve Kinney <hello@stevekinney.net>"
+  ],
+  "description": "Make music together over WebSockets",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "music",
+    "websockets"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fira": "~0.1.0"
+  }
+}

@@ -1,66 +1,55 @@
 @import './colors';
 
+@mixin stroke-fill($color) {
+  stroke: $color;
+  fill: lighten($color, 10);
+}
+
+%sequencer-rect {
+  &.socket {
+    fill: $ocean;
+    stroke: darken($ocean, 10);
+  }
+
+  &.on {
+    fill: $yellow !important;
+    stroke: darken($yellow, 10) !important;
+  }
+}
+
+.active {
+  opacity: 0.6;
+}
+
+.mute .active {
+  opacity: 1;
+}
+
 .user-sequencer svg {
   width: 100%;
   rect {
-    stroke: $deepOcean;
-    fill: lighten($deepOcean, 10);
-
-    &.active {
-      opacity: 0.6;
-    }
-
-    &.on {
-      fill: $yellow;
-      stroke: darken($yellow, 10);
-    }
+    @include stroke-fill($deepOcean);
+    @extend %sequencer-rect;
   }
 }
 
 .socket-sequencers svg:nth-child(2n + 1) {
   rect {
-    stroke: $ocean;
-    fill: lighten($ocean, 10);
-
-    &.active {
-      opacity: 0.6;
-    }
-
-    &.on {
-      fill: $yellow;
-      stroke: darken($yellow, 10);
-    }
+    @include stroke-fill($ocean);
+    @extend %sequencer-rect;
   }
 }
 
 .socket-sequencers svg:nth-child(3n + 1) {
   rect {
-    stroke: $orange;
-    fill: lighten($orange, 10);
-
-    &.active {
-      opacity: 0.6;
-    }
-
-    &.on {
-      fill: $yellow;
-      stroke: darken($yellow, 10);
-    }
+    @include stroke-fill($orange);
+    @extend %sequencer-rect;
   }
 }
 
 .socket-sequencers svg {
   rect {
-    stroke: $leafGreen;
-    fill: lighten($leafGreen, 10);
-
-    &.active {
-      opacity: 0.6;
-    }
-
-    &.on {
-      fill: $yellow;
-      stroke: darken($yellow, 10);
-    }
+    @include stroke-fill($leafGreen);
+    @extend %sequencer-rect;
   }
 }
