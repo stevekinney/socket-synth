@@ -4,7 +4,7 @@ import masterSequencer from './master-sequencer';
 export default function () {
   let i = 0;
 
-  tick(new Date(), 500, function () {
+  getBeat(function () {
     const previous = ((i || 16) - 1) % 16;
     const current = i % 16;
 
@@ -17,12 +17,8 @@ export default function () {
   });
 }
 
-export function tick(start, duration, callback, nextBeat) {
-  var next = nextBeat || new Date(start.getTime() + duration);
-  if (new Date() >= next) {
-    if (typeof callback === 'function') { callback(); }
-    requestAnimationFrame(tick.bind(null, next, duration, callback, null));
-  } else {
-    requestAnimationFrame(tick.bind(null, start, duration, callback, next));
-  }
+export function getBeat(callback, current) {
+  const beat = Math.floor(((new Date()).getTime() / 500 % 16));
+  if (beat !== current && typeof callback === 'function') { callback(); }
+  window.requestAnimationFrame(getBeat.bind(null, callback, beat));
 }
