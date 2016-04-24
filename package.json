@@ -4,7 +4,8 @@
   "description": "Make music, together.",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/nodemon/bin/nodemon.js index.js --ignore dist/ --ignore src/",
+    "start": "node index.js",
+    "develop": "./node_modules/nodemon/bin/nodemon.js index.js --ignore dist/ --ignore src/",
     "watch": "./node_modules/webpack/bin/webpack.js --progress --colors --watch",
     "build": "./node_modules/webpack/bin/webpack.js",
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel/register"
