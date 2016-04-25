@@ -1,10 +1,11 @@
 const express = require('express');
-const _ = require('lodash');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 const path = require('path');
+
+const port = parseInt(process.env.PORT, 10) || 3000;
 
 app.use(express.static('client'));
 
@@ -38,6 +39,6 @@ io.on('connection', function (socket) {
   });
 });
 
-http.listen(process.env.PORT || 3000, function(){
-  console.log('Your server is up and running on Port 3000. Good job!');
+http.listen(port, function () {
+  console.log(`Your server is up and running on Port ${port}. Good job!`);
 });
